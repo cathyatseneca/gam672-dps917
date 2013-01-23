@@ -24,10 +24,10 @@ void drawPlus(){
 }
 void draw(){
   for(int i=0;i<s.length();i++){
-    if (s.charAt(i)=='F'){
+    if (s.charAt(i)=="F"){
       drawF();
     }
-    else if (s.charAt(i)=='+'){
+    else if (s.charAt(i)=="+"){
       drawPlus();
     }
   }
