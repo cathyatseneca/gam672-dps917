@@ -1,9 +1,9 @@
 float alpha = 0;   
-float stepSize = 2;
-String s= "F+F+F+F";
-String fChange="F+F-F-FF+F+F-F";
+float stepSize = 20;
+String s= "F-F-F-F";
+String fChange="F-F+F+FF-F-F+F";
 float angleChange=PI/2;  //90 degrees
-iteration = 3;
+iteration = 2;
 int curr=0;  //used to show where
              //in the string draw
 
@@ -14,7 +14,7 @@ void setup(){
   background(255);
   posX=200;
   posY=200;
-  frameRate(60);
+  frameRate(20);
   for(int i=0;i<iteration;i++){
      nextGeneration(s);
   }
@@ -28,10 +28,10 @@ void drawF(){
   posY=posYPrime;
 }
 void drawPlus(){
-  alpha = alpha + angleChange;
+  alpha = alpha - angleChange;
 }
 void drawMinus(){
-  alpha = alpha - angleChange;
+  alpha = alpha + angleChange;
 }
 //apply production rule to modify the string
 void nextGeneration(String original){
@@ -48,7 +48,7 @@ void nextGeneration(String original){
 }
 void draw(){
   int count =0;
-  while(curr < s.length() && count < 10){
+  while(curr < s.length() && count < 1){
     if (s.charAt(curr)=="F"){
       drawF();
     }
