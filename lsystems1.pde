@@ -1,35 +1,67 @@
-/* http://www.biologie.uni-hamburg.de/b-online/e28_3/lsys.html*/
-
-float angle = 0;
-float stepSize = 50;
+float alpha = 0;   
+float stepSize = 2;
 String s= "F+F+F+F";
+String fChange="F+F-F-FF+F+F-F";
 float angleChange=PI/2;  //90 degrees
+iteration = 3;
+int curr=0;  //used to show where
+             //in the string draw
 
 float posX, posY;
 
 void setup(){
-  size(500,500);
-  posX=100;
-  posY=100;
+  size(700,700);
+  background(255);
+  posX=200;
+  posY=200;
+  frameRate(60);
+  for(int i=0;i<iteration;i++){
+     nextGeneration(s);
+  }
+
 }
 void drawF(){
-  float posXPrime = posX+stepSize*cos(angle);
-  float posYPrime = posY+stepSize*sin(angle);
+  float posXPrime = posX + stepSize*cos(alpha);
+  float posYPrime = posY + stepSize*sin(alpha);
   line(posX,posY,posXPrime, posYPrime);
   posX=posXPrime;
   posY=posYPrime;
 }
 void drawPlus(){
-  angle= angle+angleChange;
+  alpha = alpha + angleChange;
 }
-void draw(){
-  for(int i=0;i<s.length();i++){
-    if (s.charAt(i)=="F"){
-      drawF();
+void drawMinus(){
+  alpha = alpha - angleChange;
+}
+//apply production rule to modify the string
+void nextGeneration(String original){
+  String tmp="";
+  for(int i=0; i<original.length(); i++){
+    if(original.charAt(i)=="F"){
+      tmp=tmp+fChange;
     }
-    else if (s.charAt(i)=="+"){
-      drawPlus();
+    else{
+      tmp=tmp+original.charAt(i);
     }
   }
-  noLoop();
+  s=tmp;
+}
+void draw(){
+  int count =0;
+  while(curr < s.length() && count < 10){
+    if (s.charAt(curr)=="F"){
+      drawF();
+    }
+    else if (s.charAt(curr)=="+"){
+      drawPlus();
+    }
+    else if (s.charAt(curr)=="-"){
+      drawMinus();
+    }
+    curr++;
+    count++;
+  }
+  if(curr >=s.length()){
+    noLoop();
+  }
 }
